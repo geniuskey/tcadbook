@@ -460,6 +460,7 @@
     const root = body.dataset.root != null ? body.dataset.root : body.dataset.chapter ? "../" : "";
     const curSlug = body.dataset.chapter || "";
     const href = (slug) => (slug ? `${root}chapters/${slug}.html` : `${root}index.html`);
+    const feedbackUrl = "https://books.euiyun.com/feedback.html?book=tcadbook&page=" + encodeURIComponent(location.href);
 
     // favicon
     if (!document.querySelector('link[rel="icon"]')) { const fi = document.createElement("link"); fi.rel = "icon"; fi.type = "image/svg+xml"; fi.href = root + "favicon.svg"; document.head.appendChild(fi); }
@@ -469,10 +470,20 @@
     bar.className = "tb-topbar";
     bar.innerHTML = `
       <button class="tb-btn icon" id="tb-menu" aria-label="챕터 목록">${ICON_MENU}</button>
-      <a class="tb-logo" href="${href("")}">${LOGO}<span>TCADBook <small>반도체 TCAD 교과서</small></span></a>
+      <a class="tb-logo" href="${href("")}" aria-label="TCADBook 홈">${LOGO}<span>TCADBook <small>반도체 TCAD 교과서</small></span></a>
       <span class="spacer"></span>
+      <a class="tb-btn icon" href="https://books.euiyun.com/" aria-label="전체 책 보기" title="전체 책 보기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5h6v14H4zM10 5.5h6v14h-6zM17 7l3-1 2 13-3 1z"/></svg></a>
       <button class="tb-btn icon" id="tb-theme" aria-label="테마 전환"></button>
       <div class="tb-progress" id="tb-progress"></div>`;
+    const feedbackButton = document.createElement("a");
+    feedbackButton.className = "tb-btn icon";
+    feedbackButton.href = feedbackUrl;
+    feedbackButton.target = "_blank";
+    feedbackButton.rel = "noopener";
+    feedbackButton.setAttribute("aria-label", "독자 의견 보내기");
+    feedbackButton.title = "독자 의견 보내기";
+    feedbackButton.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-6 4V6a2 2 0 0 1 2-2z"/><path d="M8 9h8M8 13h5"/></svg>';
+    bar.querySelector("#tb-theme").before(feedbackButton);
     body.prepend(bar);
 
     // drawer
@@ -559,6 +570,12 @@
     foot.className = "tb-foot";
     foot.innerHTML = `TCADBook — 공학도를 위한 인터랙티브 반도체 TCAD 교과서 · 수치는 브라우저에서 푸는 교육용 모델입니다.<br>
       © 2026 geniuskey 및 TCADBook 기여자 · 콘텐츠 <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · 코드 <a href="${root}LICENSE-MIT">MIT</a> · <a href="${root}LICENSE.md">라이선스 안내</a>`;
+    const feedbackLink = document.createElement("a");
+    feedbackLink.href = feedbackUrl;
+    feedbackLink.target = "_blank";
+    feedbackLink.rel = "noopener";
+    feedbackLink.textContent = "독자 의견";
+    foot.append(" · ", feedbackLink);
     body.appendChild(foot);
 
     // quiz
