@@ -464,3 +464,8 @@ svg .m-hk { fill: var(--m-hk); } svg .m-sige { fill: var(--m-sige); } svg .m-tin
 svg .m-pr { fill: var(--m-pr); } svg .m-sp { fill: var(--m-sp); } svg .m-ge { fill: var(--m-ge); }
 .sim-view canvas.drag { cursor: grab; touch-action: none; }
 .sim-view canvas.drag:active { cursor: grabbing; }
+
+/* Shareable simulator anchor links */
+.sim-link { margin-left: auto; flex: 0 0 auto; font: 12px var(--mono); color: var(--text-faint); }
+.sim-link:hover, .sim-link:focus-visible { color: var(--accent); text-decoration: none; }
+.sim { scroll-margin-top: 1rem; }
